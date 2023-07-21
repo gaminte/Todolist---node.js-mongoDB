@@ -60,12 +60,12 @@ app.get("/:custom", async function(req,res) {
 
 app.post("/:custom", function(req, res) {
   model.create({name: req.body.newItem});
-  res.redirect(`/list/${param}`);
+  res.redirect(`/${param}`);
 });
 
 app.post("/:custom/delete", async function(req, res) {
   await model.findByIdAndRemove(req.body.check);
-  res.redirect(`/list/${param}`);
+  res.redirect(`/${param}`);
 });
 
 app.get("/about", function(req, res){

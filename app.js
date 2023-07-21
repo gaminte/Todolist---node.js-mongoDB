@@ -45,7 +45,7 @@ let param;
 let model;
 let modelItems;
 
-app.get("/list/:custom", async function(req,res) {
+app.get("/:custom", async function(req,res) {
   param = lodash.capitalize(lodash.camelCase(req.params.custom));
   model = mongoose.model(param, itemsSchema);
   modelItems = await model.find();
@@ -53,17 +53,17 @@ app.get("/list/:custom", async function(req,res) {
   res.render("list", {
     listTitle: param,
     newListItems: modelItems,
-    url: `/list/${param}`,
-    delUrl: `/list/${param}/delete`,
+    url: `/${param}`,
+    delUrl: `/${param}/delete`,
   });
 });
 
-app.post("/list/:custom", function(req, res) {
+app.post("/:custom", function(req, res) {
   model.create({name: req.body.newItem});
   res.redirect(`/list/${param}`);
 });
 
-app.post("/list/:custom/delete", async function(req, res) {
+app.post("/:custom/delete", async function(req, res) {
   await model.findByIdAndRemove(req.body.check);
   res.redirect(`/list/${param}`);
 });
